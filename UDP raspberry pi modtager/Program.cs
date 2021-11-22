@@ -15,6 +15,8 @@ namespace UDP_raspberry_pi_modtager
         //private static readonly IPAddress IpAddress = IPAddress.Parse("192.168.5.137"); 
         // Listen for activity on all network interfaces
         // https://msdn.microsoft.com/en-us/library/system.net.ipaddress.ipv6any.aspx
+
+        private static BreathndrinkContext _dbContext;
         static void Main()
         {
             IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Any, Port);
@@ -45,6 +47,7 @@ namespace UDP_raspberry_pi_modtager
             string temperatureLine = parts[6];
             string temperatureStr = temperatureLine.Substring(temperatureLine.IndexOf(": ") + 2);
             Console.WriteLine(temperatureStr);
+            _dbContext.Promille.Add(temperatureStr);
         }
     }
 }
