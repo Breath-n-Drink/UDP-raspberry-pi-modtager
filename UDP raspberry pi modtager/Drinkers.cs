@@ -6,13 +6,16 @@ using System.Collections.Generic;
 
 namespace UDP_raspberry_pi_modtager
 {
-    public partial class Promille
+    public partial class Drinkers
     {
-        public int Id { get; set; }
-        public int DrinkerId { get; set; }
-        public double Promille1 { get; set; }
-        public DateTime Time { get; set; }
+        public Drinkers()
+        {
+            Promille = new HashSet<Promille>();
+        }
 
-        public virtual Drinkers Drinker { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+
+        public virtual ICollection<Promille> Promille { get; set; }
     }
 }

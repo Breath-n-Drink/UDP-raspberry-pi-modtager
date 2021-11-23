@@ -4,7 +4,7 @@
    "ContextNamespace": null,
    "DefaultDacpacSchema": null,
    "FilterSchemas": false,
-   "IncludeConnectionString": false,
+   "IncludeConnectionString": true,
    "ModelNamespace": null,
    "OutputContextPath": null,
    "OutputPath": null,
@@ -13,6 +13,10 @@
    "SelectedHandlebarsLanguage": 0,
    "SelectedToBeGenerated": 0,
    "Tables": [
+      {
+         "Name": "[dbo].[Drinkers]",
+         "ObjectType": 0
+      },
       {
          "Name": "[dbo].[Promille]",
          "ObjectType": 0

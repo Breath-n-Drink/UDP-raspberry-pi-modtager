@@ -11,14 +11,19 @@ namespace UDP_raspberry_pi_modtager
         // IMPORTANT Windows firewall must be open on UDP port 7000
         // https://www.windowscentral.com/how-open-port-windows-firewall
         // Use the network MGV-xxx to capture from local IoT devices (fake or real)
-        private const int Port = 7000 ;
+        private const int Port = 7000;
         //private static readonly IPAddress IpAddress = IPAddress.Parse("192.168.5.137"); 
         // Listen for activity on all network interfaces
         // https://msdn.microsoft.com/en-us/library/system.net.ipaddress.ipv6any.aspx
 
-        private static BreathndrinkContext _dbContext;
+        public static Promille prom;
+
+
         static void Main()
         {
+
+            using var db = new BreathndrinkContext();
+
             IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Any, Port);
             using (UdpClient socket = new UdpClient(ipEndPoint))
             {
@@ -31,7 +36,9 @@ namespace UDP_raspberry_pi_modtager
                     string message = Encoding.ASCII.GetString(datagramReceived, 0, datagramReceived.Length);
                     Console.WriteLine("Receives {0} bytes from {1} port {2} message {3}", datagramReceived.Length,
                         remoteEndPoint.Address, remoteEndPoint.Port, message);
-                    //Parse(message);
+                    Console.WriteLine(double.Parse(message, System.Globalization.CultureInfo.InvariantCulture));
+
+                    Parse(message);
                 }
             }
         }
@@ -39,15 +46,14 @@ namespace UDP_raspberry_pi_modtager
         // To parse data from the IoT devices (depends on the protocol)
         private static void Parse(string response)
         {
-            string[] parts = response.Split(' ');
-            foreach (string part in parts)
+
+            prom = new Promille() { DrinkerId = 1, Promille1 = double.Parse(response, System.Globalization.CultureInfo.InvariantCulture), Time = DateTime.Now };
+            using (var context = new BreathndrinkContext())
             {
-                Console.WriteLine(part);
+                context.Promille.Add(prom);
+                context.SaveChanges();
             }
-            string temperatureLine = parts[6];
-            string temperatureStr = temperatureLine.Substring(temperatureLine.IndexOf(": ") + 2);
-            Console.WriteLine(temperatureStr);
-            _dbContext.Promille.Add(temperatureStr);
+
         }
     }
 }
