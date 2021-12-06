@@ -11,17 +11,15 @@ namespace UDP_raspberry_pi_modtager
         // IMPORTANT Windows firewall must be open on UDP port 7000
         // https://www.windowscentral.com/how-open-port-windows-firewall
         // Use the network MGV-xxx to capture from local IoT devices (fake or real)
-        private const int Port = 9031;
+        private const int Port = 22392;
         //private static readonly IPAddress IpAddress = IPAddress.Parse("192.168.5.137"); 
         // Listen for activity on all network interfaces
         // https://msdn.microsoft.com/en-us/library/system.net.ipaddress.ipv6any.aspx
 
         public static Promille prom;
 
-
         static void Main()
         {
-
             using var db = new BreathndrinkContext();
 
             IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Any, Port);
@@ -53,7 +51,6 @@ namespace UDP_raspberry_pi_modtager
                 context.Promille.Add(prom);
                 context.SaveChanges();
             }
-
         }
     }
 }
