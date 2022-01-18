@@ -26,7 +26,7 @@ namespace UDP_raspberry_pi_modtager
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=eksamenprojekt3sem.database.windows.net;Initial Catalog=BreathNDrink;Persist Security Info=True;User ID=gruppe2;Password=!SuperPassword");
+                optionsBuilder.UseSqlServer("Data Source=breathndrink.database.windows.net;Initial Catalog=BreathNDrink;User ID=gruppe2;Password=!SuperSecret;Connect Timeout=30;Encrypt=True");
             }
         }
 
